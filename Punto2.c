@@ -20,7 +20,7 @@
         printf("Error Creando Proceso Hijo");
         exit(EXIT_FAILURE);
     case 0:
-
+        //Aqui Se pasa de padre a hijo
         for(short i=0; i<argc-1;i++){
             read(fd[0],text,20);
             num[i] = strtol(text,&bsh,10);
@@ -30,7 +30,6 @@
             nume = nume + num[i];
         }
         nume = nume / (argc-1);
-        printf("%f",nume);
         sprintf(text,"%f", nume);
         write(fd[1],text,20);
         break;
@@ -38,9 +37,10 @@
         for(short i=1;i<argc;i++){
             write(fd[1],argv[i],20);
         }
+        //Aqui Imprime el padre lo que le paso el hijo
         wait(NULL);
         read(fd[0],text,20);
-        printf("El resultado fue: %s",text);
+        printf("(Soy el padre)El resultado que me pasaron fue: %s\n",text);
         close(fd[0]);
         close(fd[1]);
         break;
